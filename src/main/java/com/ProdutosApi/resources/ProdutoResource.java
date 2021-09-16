@@ -16,45 +16,37 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ProdutosApi.models.Produto;
 import com.ProdutosApi.repository.ProdutosRepository;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/api")
-@Api(value="API REST Produtos")
-@CrossOrigin(origins = "*")
 public class ProdutoResource {
 	
 	@Autowired
 	ProdutosRepository produtoRepository;
 	
-	@GetMapping("/produtos")
-	@ApiOperation(value="Retorna uma lista de produtos")
+	@GetMapping("/produto")
 	public List<Produto> ListaProdutos(){
 		return produtoRepository.findAll();
 	}
 	
-	@GetMapping("/produtos/{id}")
-	@ApiOperation(value="Retorna uma produtos único")
+	@GetMapping("/produto/{id}")
 	public Produto ListaProdutoUnico(@PathVariable(value = "id") long id){
 		return produtoRepository.findById(id);
 	}
 	
-	
 	@PostMapping("/produto")
-	@ApiOperation(value="Salva um produto")
 	public Produto salvaProduto(@RequestBody Produto produto) {
 		return produtoRepository.save(produto);
 	}
 	
 	@DeleteMapping("/produto")
-	@ApiOperation(value="Deleta um produto")
 	public void deleteProduto(@RequestBody Produto produto) {
 		produtoRepository.delete(produto);
 	}
 	
 	@PutMapping("/produto")
-	@ApiOperation(value="Atualiza produtos")
 	public Produto atualizaProduto(@RequestBody Produto produto) {
 		return produtoRepository.save(produto);
 	}
